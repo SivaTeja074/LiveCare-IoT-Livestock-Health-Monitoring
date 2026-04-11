@@ -1,0 +1,13 @@
+# Firebase secret file
+livecare-18328-firebase-adminsdk-fbsvc-5a436cf629.json
+
+# Python
+__pycache__/
+*.pyc
+venv/
+
+# Env files
+.env
+
+# Node (if any)
+node_modules/
