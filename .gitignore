@@ -1,13 +1,16 @@
-# Firebase secret file
-livecare-18328-firebase-adminsdk-fbsvc-5a436cf629.json
+# Firebase credentials (never commit)
+config/firebase/*.json
 
 # Python
 __pycache__/
 *.pyc
+.venv/
 venv/
-
-# Env files
 .env
 
-# Node (if any)
-node_modules/
+# Jupyter
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db

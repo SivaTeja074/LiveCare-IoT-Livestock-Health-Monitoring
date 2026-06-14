@@ -2,8 +2,13 @@ import streamlit as st
 import pandas as pd
 import joblib
 import firebase_admin
-import time  
+import time
+from pathlib import Path
 from firebase_admin import credentials, db
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+MODELS_DIR = PROJECT_ROOT / "ml" / "models"
+FIREBASE_CRED_PATH = PROJECT_ROOT / "config" / "firebase" / "livecare-18328-firebase-adminsdk-fbsvc-5a436cf629.json"
 
 # ==========================================
 # PAGE CONFIG
@@ -15,11 +20,11 @@ st.set_page_config(page_title="LiveCare Status Dashboard", layout="centered", pa
 # ==========================================
 @st.cache_resource
 def load_model():
-    return joblib.load('livecare_isolation_forest.pkl')
+    return joblib.load(MODELS_DIR / "livecare_isolation_forest.pkl")
 
 @st.cache_resource
 def load_scaler():
-    return joblib.load('scaler.pkl')
+    return joblib.load(MODELS_DIR / "scaler.pkl")
 
 model = load_model()
 scaler = load_scaler()
@@ -39,7 +44,7 @@ feature_order = [
 @st.cache_resource
 def init_firebase():
     if not firebase_admin._apps:
-        cred = credentials.Certificate('livecare-18328-firebase-adminsdk-fbsvc-5a436cf629.json')
+        cred = credentials.Certificate(str(FIREBASE_CRED_PATH))
         firebase_admin.initialize_app(cred, {
             'databaseURL': 'https://livecare-18328-default-rtdb.asia-southeast1.firebasedatabase.app/'
         })
@@ -103,7 +108,6 @@ if page == "💉 Inject manual sensor packets":
 
         df = pd.DataFrame([injected_data])[feature_order]
 
-        # 🔥 APPLY SCALING
         df_scaled = scaler.transform(df)
 
         with st.spinner("Running through Isolation Forest..."):
