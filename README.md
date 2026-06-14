@@ -25,7 +25,6 @@ LiveCare_Project/
 ```
 
 ## Setup
-
 1. Create a virtual environment and install dependencies:
 
    ```bash
@@ -40,7 +39,7 @@ LiveCare_Project/
    config/firebase/livecare-18328-firebase-adminsdk-fbsvc-5a436cf629.json
    ```
 
-## Usage
+## Usage :
 
 ### Run the dashboard
 
